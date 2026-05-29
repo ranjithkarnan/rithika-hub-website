@@ -4,22 +4,30 @@ import { MessageCircle } from 'lucide-react';
 import { createWhatsAppLink } from './siteData.jsx';
 import { buttonMotion, fadeUp, scaleIn, staggerContainer, viewportOnce } from './animations.js';
 
-export default function Services({ categories }) {
+export default function Services({ categories, filterKey }) {
   return (
     <motion.section
       className="section bento-section"
       id="services"
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
-      variants={staggerContainer}
     >
-      <motion.div className="section-title" variants={fadeUp}>
+      <motion.div
+        className="section-title"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={fadeUp}
+      >
         <span className="section-kicker">Bento service system</span>
         <h2>Digital convenience, neatly organized</h2>
         <p>Choose a category, scan the service list, and start a WhatsApp enquiry instantly.</p>
       </motion.div>
-      <motion.div className="bento-grid" variants={staggerContainer}>
+      <motion.div
+        className="bento-grid"
+        key={filterKey}
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
         {categories.map((category, index) => {
           const Icon = category.icon;
           return (

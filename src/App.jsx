@@ -16,15 +16,37 @@ import MouseGlow from './MouseGlow.jsx';
 import WhyBusinessesChooseUs from './WhyBusinessesChooseUs.jsx';
 import { bentoCategories } from './siteData.jsx';
 
+function normalizeFilterValue(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function doesCategoryMatchFilter(category, normalizedFilter) {
+  const normalizedCategoryFilter = normalizeFilterValue(category.filter);
+  const normalizedCategoryTitle = normalizeFilterValue(category.title);
+
+  return (
+    normalizedCategoryFilter === normalizedFilter ||
+    normalizedCategoryTitle.includes(normalizedFilter)
+  );
+}
+
 export default function App() {
   const [query, setQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
 
   const filteredCategories = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
+    const normalizedFilter = normalizeFilterValue(activeFilter);
+    const shouldShowAll = normalizedFilter === 'all';
 
     return bentoCategories
-      .filter((category) => activeFilter === 'All' || category.filter === activeFilter)
+      .filter((category) => {
+        if (shouldShowAll) {
+          return true;
+        }
+
+        return doesCategoryMatchFilter(category, normalizedFilter);
+      })
       .map((category) => ({
         ...category,
         services: category.services.filter((service) =>
@@ -47,7 +69,7 @@ export default function App() {
           onFilterChange={setActiveFilter}
           onQueryChange={setQuery}
         />
-        <Services categories={filteredCategories} />
+        <Services categories={filteredCategories} filterKey={`${activeFilter}-${query}`} />
         <WhyBusinessesChooseUs />
         <FeaturedActions />
         <TrustStrip />
