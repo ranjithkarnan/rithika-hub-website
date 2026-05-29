@@ -1543,6 +1543,97 @@ body.menu-open {
   }
 }
 
+@media (max-width: 768px) {
+  .nav {
+    padding: 5px 0;
+  }
+
+  .nav-blur {
+    padding: 5px 0;
+  }
+
+  .nav-frame {
+    width: calc(100% - 20px);
+    min-height: 54px;
+    padding: 6px 8px;
+    gap: 10px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand > span:first-child {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .brand-copy {
+    gap: 1px;
+  }
+
+  .brand-copy strong {
+    font-size: 15.5px;
+    line-height: 1.08;
+  }
+
+  .brand-copy small {
+    font-size: 10px;
+    line-height: 1.08;
+  }
+
+  .menu-toggle {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+
+  .menu-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-menu {
+    width: min(86vw, 340px);
+    gap: 10px;
+    padding: 76px 16px 18px;
+    border-radius: 22px 0 0 22px;
+  }
+
+  .mobile-menu-head {
+    gap: 2px;
+    margin-bottom: 2px;
+    padding: 0 2px 4px;
+  }
+
+  .mobile-menu-head span {
+    font-size: 1rem;
+  }
+
+  .mobile-menu-head small {
+    font-size: 0.74rem;
+  }
+
+  .nav-menu a {
+    min-height: 42px;
+    padding: 11px 14px;
+    border-radius: 16px;
+    font-size: 15px;
+  }
+
+  .mobile-menu-whatsapp {
+    min-height: 42px;
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+  }
+
+  .mobile-menu-whatsapp svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 @media (max-width: 640px) {
   .section {
     width: min(100% - 24px, 1160px);
@@ -1551,8 +1642,8 @@ body.menu-open {
 
   .nav-frame {
     width: calc(100% - 20px);
-    min-height: 56px;
-    padding: 7px 8px;
+    min-height: 52px;
+    padding: 6px 8px;
   }
 
   .nav-whatsapp {
@@ -1560,21 +1651,23 @@ body.menu-open {
   }
 
   .brand > span:first-child {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 
   .brand strong {
-    font-size: 0.94rem;
+    font-size: 0.92rem;
   }
 
   .brand small {
-    font-size: 0.66rem;
+    font-size: 0.62rem;
   }
 
   .menu-toggle {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
   }
 
   .nav-tools .nav-whatsapp {
