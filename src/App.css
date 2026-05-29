@@ -1467,7 +1467,7 @@ body.menu-open {
   .mobile-menu-whatsapp {
     display: flex;
     justify-content: center !important;
-    margin-top: auto;
+    /* margin-top: auto; */
     color: #fff !important;
     border-color: rgba(31, 200, 107, 0.34) !important;
     background: linear-gradient(135deg, #1fc86b, #0a9847) !important;
