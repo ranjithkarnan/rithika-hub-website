@@ -122,6 +122,7 @@ button {
 
 .nav-frame {
   position: relative;
+  z-index: 2;
   width: min(1160px, calc(100% - 28px));
   min-height: 58px;
   margin: 0 auto;
@@ -135,6 +136,10 @@ button {
   background: linear-gradient(135deg, rgba(7, 21, 40, 0.78), rgba(11, 33, 69, 0.58));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(24px);
+}
+
+body.menu-open {
+  overflow: hidden;
 }
 
 .brand {
@@ -181,6 +186,12 @@ button {
   display: flex;
   align-items: center;
   gap: 2px;
+}
+
+.mobile-menu-head,
+.mobile-menu-whatsapp,
+.nav-backdrop {
+  display: none;
 }
 
 .nav-menu a {
@@ -1354,51 +1365,145 @@ button {
 @media (max-width: 980px) {
   .menu-toggle {
     display: grid;
+    position: relative;
+    z-index: 10001;
+  }
+
+  .nav-frame {
+    z-index: 10000;
+  }
+
+  .nav-tools > .nav-whatsapp {
+    display: none;
   }
 
   .nav-menu {
     position: fixed;
-    inset: 0;
-    z-index: -1;
-    display: grid;
-    align-content: center;
-    justify-items: center;
-    gap: 12px;
-    padding: 110px 24px 32px;
-    border: 0;
-    border-radius: 0;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    width: min(86vw, 360px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+    padding: 92px 20px 24px;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 28px 0 0 28px;
     background:
-      radial-gradient(circle at 50% 16%, rgba(20, 121, 255, 0.24), transparent 22rem),
-      linear-gradient(180deg, rgba(4, 14, 31, 0.98), rgba(7, 21, 40, 0.96));
-    box-shadow: none;
-    backdrop-filter: blur(24px);
-    opacity: 0;
+      radial-gradient(circle at 70% 12%, rgba(20, 121, 255, 0.26), transparent 18rem),
+      radial-gradient(circle at 16% 88%, rgba(255, 210, 74, 0.14), transparent 16rem),
+      rgba(8, 24, 48, 0.92);
+    box-shadow:
+      -30px 0 70px rgba(0, 0, 0, 0.34),
+      inset 1px 0 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     pointer-events: none;
-    transform: translateY(-14px);
+    transform: translateX(100%);
     transition:
-      opacity 180ms ease,
-      transform 180ms ease;
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 260ms ease;
+  }
+
+  .mobile-menu-head {
+    display: grid;
+    gap: 4px;
+    margin-bottom: 6px;
+    padding: 0 4px 8px;
+  }
+
+  .mobile-menu-head span {
+    color: #fff;
+    font-size: 1.18rem;
+    font-weight: 950;
+  }
+
+  .mobile-menu-head small {
+    color: #9db4d2;
+    font-size: 0.82rem;
+    font-weight: 800;
   }
 
   .nav-menu a {
-    width: min(100%, 360px);
-    padding: 17px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 20px;
     color: #eef6ff;
-    background: rgba(255, 255, 255, 0.06);
-    text-align: center;
-    font-size: 1.08rem;
+    background: rgba(255, 255, 255, 0.075);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 18px 38px rgba(0, 0, 0, 0.14);
+    text-align: left;
+    font-size: 1.03rem;
+    backdrop-filter: blur(18px);
+  }
+
+  .nav-menu .nav-link-active {
+    color: #fff;
+    border-color: rgba(255, 210, 74, 0.45);
+    background:
+      linear-gradient(135deg, rgba(255, 210, 74, 0.24), rgba(20, 121, 255, 0.16)),
+      rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 28px rgba(255, 210, 74, 0.12);
   }
 
   .nav-menu a::after {
-    bottom: 9px;
+    display: none;
   }
 
   .nav-menu-open {
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .mobile-menu-whatsapp {
+    display: flex;
+    justify-content: center !important;
+    margin-top: auto;
+    color: #fff !important;
+    border-color: rgba(31, 200, 107, 0.34) !important;
+    background: linear-gradient(135deg, #1fc86b, #0a9847) !important;
+    box-shadow: 0 18px 34px rgba(31, 200, 107, 0.24) !important;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: block;
+    border: 0;
+    background: rgba(2, 8, 20, 0.58);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+  }
+
+  .nav-backdrop-open {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+  }
+
+  .brand,
+  .nav-tools {
+    position: relative;
+    z-index: 10000;
+  }
+
+  .nav-open .nav-frame {
+    background: rgba(7, 21, 40, 0.92);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 18px 46px rgba(2, 8, 20, 0.28);
   }
 
   .hero-shell,

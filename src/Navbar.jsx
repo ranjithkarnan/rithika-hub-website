@@ -35,8 +35,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', isOpen);
+    return () => document.body.classList.remove('menu-open');
+  }, [isOpen]);
+
   return (
-    <header className={`nav ${isScrolled ? 'nav-blur' : ''}`}>
+    <header className={`nav ${isScrolled ? 'nav-blur' : ''} ${isOpen ? 'nav-open' : ''}`}>
       <nav className="nav-frame" aria-label="Main navigation">
         <a className="brand" href="#home" onClick={() => setIsOpen(false)}>
           <span>RH</span>
@@ -46,6 +51,10 @@ export default function Navbar() {
           </span>
         </a>
         <div className={`nav-menu ${isOpen ? 'nav-menu-open' : ''}`}>
+          <div className="mobile-menu-head">
+            <span>Menu</span>
+            <small>Choose a page</small>
+          </div>
           {links.map((link) => (
             <a
               className={activeHref === link.href ? 'nav-link-active' : ''}
@@ -59,6 +68,16 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <a
+            className="mobile-menu-whatsapp"
+            href={createWhatsAppLink('your services')}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setIsOpen(false)}
+          >
+            <MessageCircle size={18} />
+            WhatsApp
+          </a>
         </div>
         <div className="nav-tools">
           <a className="nav-whatsapp" href={createWhatsAppLink('your services')} target="_blank" rel="noreferrer">
@@ -76,6 +95,12 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+      <button
+        className={`nav-backdrop ${isOpen ? 'nav-backdrop-open' : ''}`}
+        type="button"
+        aria-label="Close navigation menu"
+        onClick={() => setIsOpen(false)}
+      />
     </header>
   );
 }
