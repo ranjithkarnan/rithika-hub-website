@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { BadgeIndianRupee, FileBadge, MessageCircle, Printer, Smartphone, Ticket, WalletCards } from 'lucide-react';
 import { createWhatsAppLink } from './siteData.jsx';
 import { buttonMotion, fadeUp, staggerContainer } from './animations.js';
@@ -13,10 +13,6 @@ const dashboardItems = [
 ];
 
 export default function Hero() {
-  const { scrollYProgress } = useScroll();
-  const dashboardY = useTransform(scrollYProgress, [0, 0.28], [0, 42]);
-  const glowY = useTransform(scrollYProgress, [0, 0.28], [0, -34]);
-
   function scrollToServices() {
     document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
     if (window.location.hash) {
@@ -26,13 +22,13 @@ export default function Hero() {
 
   return (
     <section className="hero-new" id="home">
-      <motion.div className="hero-mesh" style={{ y: glowY }} />
+      <div className="hero-mesh" />
       <div className="hero-shell">
         <motion.div className="hero-text" initial="hidden" animate="visible" variants={staggerContainer}>
           <motion.span className="badge" variants={fadeUp}>One-stop digital service center</motion.span>
-          <motion.h1 variants={fadeUp}>
+          <h1>
             Documents, Payments, Printing & Mobile Services - All in One Place
-          </motion.h1>
+          </h1>
           <motion.p variants={fadeUp}>
             Get fast support for Aadhaar, PAN, passport, Xerox, recharge, money
             transfer, tickets, and more at your trusted local service hub.
@@ -48,7 +44,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        <motion.div className="dashboard-wrap" aria-label="Service dashboard preview" style={{ y: dashboardY }}>
+        <motion.div className="dashboard-wrap" aria-label="Service dashboard preview">
           <motion.div className="orbit-card orbit-one" animate={{ y: [0, -12, 0] }} transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}>
             <WalletCards size={20} />
             Utility Bills

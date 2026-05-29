@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const particles = Array.from({ length: 14 }, (_, index) => ({
@@ -10,6 +10,23 @@ const particles = Array.from({ length: 14 }, (_, index) => ({
 }));
 
 export default function FloatingParticles() {
+  const [shouldRender, setShouldRender] = useState(() => (
+    typeof window === 'undefined' ? true : !window.matchMedia('(max-width: 768px)').matches
+  ));
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const updateRenderState = () => setShouldRender(!mediaQuery.matches);
+
+    updateRenderState();
+    mediaQuery.addEventListener('change', updateRenderState);
+    return () => mediaQuery.removeEventListener('change', updateRenderState);
+  }, []);
+
+  if (!shouldRender) {
+    return null;
+  }
+
   return (
     <div className="floating-particles" aria-hidden="true">
       {particles.map((particle) => (

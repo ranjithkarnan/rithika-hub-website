@@ -18,6 +18,7 @@ import FloatingParticles from './FloatingParticles.jsx';
 import MouseGlow from './MouseGlow.jsx';
 import WhyBusinessesChooseUs from './WhyBusinessesChooseUs.jsx';
 import { bentoCategories } from './siteData.jsx';
+import useContentProtection from './hooks/useContentProtection.js';
 
 function normalizeFilterValue(value) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -34,6 +35,8 @@ function doesCategoryMatchFilter(category, normalizedFilter) {
 }
 
 export default function App() {
+  useContentProtection();
+
   const [query, setQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
 
@@ -65,7 +68,7 @@ export default function App() {
       <FloatingParticles />
       <ScrollProgress />
       <Navbar />
-      <main>
+      <main className="protected-content">
         <Hero />
         <ServiceStats />
         <ServiceSearch

@@ -41,7 +41,7 @@ body::before {
     radial-gradient(circle at 20% 30%, rgba(20, 121, 255, 0.14), transparent 22rem),
     radial-gradient(circle at 80% 18%, rgba(255, 210, 74, 0.12), transparent 22rem),
     radial-gradient(circle at 50% 86%, rgba(0, 183, 255, 0.12), transparent 24rem);
-  animation: ambientGradient 16s ease-in-out infinite alternate;
+  transform: translate3d(0, 0, 0);
 }
 
 .mouse-glow {
@@ -55,6 +55,7 @@ body::before {
   pointer-events: none;
   background: radial-gradient(circle, rgba(20, 121, 255, 0.16), transparent 68%);
   mix-blend-mode: multiply;
+  will-change: transform, opacity;
 }
 
 .floating-particles {
@@ -81,6 +82,22 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.protected-content {
+  user-select: none;
+}
+
+.protected-content input,
+.protected-content textarea,
+.protected-content select,
+.protected-content [contenteditable="true"] {
+  user-select: text;
 }
 
 button,
@@ -349,15 +366,15 @@ body.menu-open .floating-particles span {
 .hero-new {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 760px;
+  min-height: 100svh;
   padding: 136px 0 76px;
   color: #fff;
   background:
     linear-gradient(135deg, rgba(7, 21, 40, 0.98), rgba(11, 33, 69, 0.94)),
     radial-gradient(circle at 70% 28%, rgba(0, 183, 255, 0.32), transparent 24rem),
     radial-gradient(circle at 16% 72%, rgba(255, 210, 74, 0.18), transparent 22rem);
-  background-size: 100% 100%, 120% 120%, 120% 120%;
-  animation: heroGradientShift 14s ease-in-out infinite alternate;
+  background-size: 100% 100%;
 }
 
 .hero-new::after {
@@ -372,6 +389,8 @@ body.menu-open .floating-particles span {
   position: absolute;
   inset: 0;
   opacity: 0.25;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
@@ -437,12 +456,14 @@ body.menu-open .floating-particles span {
 .dashboard-wrap {
   position: relative;
   min-height: 560px;
+  aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
 }
 
 .dashboard-card {
   width: min(100%, 430px);
+  min-height: 424px;
   padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 34px;
@@ -559,6 +580,7 @@ body.menu-open .floating-particles span {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
+  min-height: 230px;
   padding-bottom: 40px;
 }
 
@@ -602,8 +624,10 @@ body.menu-open .floating-particles span {
 }
 
 .stat-card strong {
+  min-width: 6.6ch;
   color: var(--navy);
   font-size: clamp(2rem, 5vw, 3rem);
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
@@ -826,6 +850,7 @@ body.menu-open .floating-particles span {
 .reviews-carousel {
   position: relative;
   width: min(760px, 100%);
+  min-height: 354px;
   margin: 0 auto;
   display: grid;
   align-items: center;
@@ -834,7 +859,7 @@ body.menu-open .floating-particles span {
 .review-card {
   position: relative;
   overflow: hidden;
-  min-height: 310px;
+  min-height: 330px;
   display: grid;
   place-items: center;
   align-content: center;
@@ -862,6 +887,7 @@ body.menu-open .floating-particles span {
 
 .review-card p {
   max-width: 560px;
+  min-height: 58px;
   margin: 0;
   color: var(--ink);
   font-size: 1.18rem;
@@ -1936,7 +1962,7 @@ body.menu-open .floating-particles span {
   }
 
   .nav-menu-open {
-    pointer-events: auto;
+    /* pointer-events: auto; */
     transform: translate3d(0, 0, 0);
   }
 
@@ -2024,6 +2050,45 @@ body.menu-open .floating-particles span {
 }
 
 @media (max-width: 768px) {
+  body::before,
+  .floating-particles,
+  .mouse-glow {
+    display: none !important;
+  }
+
+  .hero-new {
+    min-height: 820px;
+    animation: none;
+  }
+
+  .hero-mesh {
+    opacity: 0.14;
+    mask-image: none;
+  }
+
+  .dashboard-card,
+  .orbit-card,
+  .stat-card,
+  .review-card,
+  .button-soft,
+  .nav-frame,
+  .nav-menu,
+  .nav-backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .button:hover,
+  .nav-whatsapp:hover,
+  .footer-cta:hover,
+  .bento-card:hover,
+  .action-card:hover,
+  .timeline-step:hover,
+  .stat-card:hover,
+  .review-nav:hover {
+    transform: none;
+  }
+
   .scroll-progress {
     height: 3px;
   }
@@ -2162,7 +2227,7 @@ body.menu-open .floating-particles span {
   }
 
   .hero-new {
-    min-height: auto;
+    min-height: 820px;
     padding-top: 118px;
   }
 
@@ -2281,7 +2346,7 @@ body.menu-open .floating-particles span {
   }
 
   .review-nav:hover {
-    transform: scale(1.05);
+    transform: none;
   }
 
   .reviews-carousel {
