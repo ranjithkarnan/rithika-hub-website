@@ -1262,6 +1262,76 @@ body.menu-open {
   animation: pulseWa 2.4s ease-in-out infinite;
 }
 
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 92px;
+  z-index: 41;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(10, 30, 60, 0.85);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px) scale(0.94);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.back-to-top-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top:hover {
+  border-color: rgba(255, 210, 74, 0.42);
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.28),
+    0 0 26px rgba(20, 121, 255, 0.2),
+    0 0 20px rgba(255, 210, 74, 0.12);
+  transform: translateY(-2px) scale(1.06);
+}
+
+.back-to-top::after {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  width: max-content;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(7, 21, 40, 0.9);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  content: attr(data-tooltip);
+  font-size: 0.78rem;
+  font-weight: 850;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  white-space: nowrap;
+}
+
+.back-to-top:hover::after {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
 @keyframes riseIn {
   from {
     opacity: 0;
@@ -1768,5 +1838,16 @@ body.menu-open {
 
   .footer-bottom-new {
     flex-direction: column;
+  }
+
+  .back-to-top {
+    right: 14px;
+    bottom: 84px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .back-to-top::after {
+    display: none;
   }
 }

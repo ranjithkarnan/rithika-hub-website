@@ -10,6 +10,7 @@ import HowItWorks from './HowItWorks.jsx';
 import LocationContact from './LocationContact.jsx';
 import Footer from './Footer.jsx';
 import FloatingWhatsApp from './FloatingWhatsApp.jsx';
+import BackToTop from './BackToTop.jsx';
 import FloatingParticles from './FloatingParticles.jsx';
 import MouseGlow from './MouseGlow.jsx';
 import WhyBusinessesChooseUs from './WhyBusinessesChooseUs.jsx';
@@ -54,6 +55,7 @@ export default function App() {
         <LocationContact />
       </main>
       <Footer />
+      <BackToTop />
       <FloatingWhatsApp />
     </>
   );
