@@ -3,30 +3,45 @@ import { Menu, MessageCircle, X } from 'lucide-react';
 import { createWhatsAppLink } from './siteData.jsx';
 
 const links = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Process', href: '#process' },
-  { label: 'Location', href: '#location' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', sectionId: '#home' },
+  { label: 'Services', sectionId: '#services' },
+  { label: 'Process', sectionId: '#process' },
+  { label: 'Location', sectionId: '#location' },
+  { label: 'Contact', sectionId: '#contact' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState('#home');
+  const [activeSection, setActiveSection] = useState('#home');
+
+  function removeHashFromUrl() {
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
+  function scrollToSection(sectionId) {
+    document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(sectionId);
+    setIsOpen(false);
+    removeHashFromUrl();
+  }
 
   useEffect(() => {
+    removeHashFromUrl();
+
     const onScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
       const current = links
-        .map((link) => document.querySelector(link.href))
+        .map((link) => document.querySelector(link.sectionId))
         .filter(Boolean)
         .reverse()
         .find((section) => section.getBoundingClientRect().top <= 120);
 
       if (current) {
-        setActiveHref(`#${current.id}`);
+        setActiveSection(`#${current.id}`);
       }
     };
 
@@ -43,30 +58,27 @@ export default function Navbar() {
   return (
     <header className={`nav ${isScrolled ? 'nav-blur' : ''} ${isOpen ? 'nav-open' : ''}`}>
       <nav className="nav-frame" aria-label="Main navigation">
-        <a className="brand" href="#home" onClick={() => setIsOpen(false)}>
+        <button className="brand" type="button" onClick={() => scrollToSection('#home')}>
           <span>RH</span>
           <span className="brand-copy">
             <strong>Rithika Hub</strong>
             <small>Digital Service Center</small>
           </span>
-        </a>
+        </button>
         <div className={`nav-menu ${isOpen ? 'nav-menu-open' : ''}`}>
           <div className="mobile-menu-head">
             <span>Menu</span>
             <small>Choose a page</small>
           </div>
           {links.map((link) => (
-            <a
-              className={activeHref === link.href ? 'nav-link-active' : ''}
-              key={link.href}
-              href={link.href}
-              onClick={() => {
-                setActiveHref(link.href);
-                setIsOpen(false);
-              }}
+            <button
+              className={activeSection === link.sectionId ? 'nav-link-active' : ''}
+              key={link.sectionId}
+              type="button"
+              onClick={() => scrollToSection(link.sectionId)}
             >
               {link.label}
-            </a>
+            </button>
           ))}
           <a
             className="mobile-menu-whatsapp"

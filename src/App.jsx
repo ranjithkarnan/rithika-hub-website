@@ -2,15 +2,18 @@ import React, { useMemo, useState } from 'react';
 import './App.css';
 import Navbar from './Navbar.jsx';
 import Hero from './Hero.jsx';
+import ScrollProgress from './components/ScrollProgress.jsx';
 import ServiceSearch from './ServiceSearch.jsx';
 import Services from './Services.jsx';
+import ServiceStats from './components/ServiceStats.jsx';
+import ReviewsCarousel from './components/ReviewsCarousel.jsx';
+import FAQ from './components/FAQ.jsx';
 import FeaturedActions from './FeaturedActions.jsx';
 import TrustStrip from './TrustStrip.jsx';
 import HowItWorks from './HowItWorks.jsx';
 import LocationContact from './LocationContact.jsx';
 import Footer from './Footer.jsx';
-import FloatingWhatsApp from './FloatingWhatsApp.jsx';
-import BackToTop from './BackToTop.jsx';
+import FloatingActions from './components/FloatingActions.jsx';
 import FloatingParticles from './FloatingParticles.jsx';
 import MouseGlow from './MouseGlow.jsx';
 import WhyBusinessesChooseUs from './WhyBusinessesChooseUs.jsx';
@@ -60,9 +63,11 @@ export default function App() {
     <>
       <MouseGlow />
       <FloatingParticles />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
+        <ServiceStats />
         <ServiceSearch
           activeFilter={activeFilter}
           query={query}
@@ -70,6 +75,8 @@ export default function App() {
           onQueryChange={setQuery}
         />
         <Services categories={filteredCategories} filterKey={`${activeFilter}-${query}`} />
+        <ReviewsCarousel />
+        <FAQ />
         <WhyBusinessesChooseUs />
         <FeaturedActions />
         <TrustStrip />
@@ -77,8 +84,7 @@ export default function App() {
         <LocationContact />
       </main>
       <Footer />
-      <BackToTop />
-      <FloatingWhatsApp />
+      <FloatingActions />
     </>
   );
 }

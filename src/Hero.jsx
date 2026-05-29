@@ -17,6 +17,13 @@ export default function Hero() {
   const dashboardY = useTransform(scrollYProgress, [0, 0.28], [0, 42]);
   const glowY = useTransform(scrollYProgress, [0, 0.28], [0, -34]);
 
+  function scrollToServices() {
+    document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
   return (
     <section className="hero-new" id="home">
       <motion.div className="hero-mesh" style={{ y: glowY }} />
@@ -35,9 +42,9 @@ export default function Hero() {
               <MessageCircle size={19} />
               Enquire on WhatsApp
             </motion.a>
-            <motion.a className="button button-soft" href="#services" {...buttonMotion}>
+            <motion.button className="button button-soft" type="button" onClick={scrollToServices} {...buttonMotion}>
               Explore Services
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
 

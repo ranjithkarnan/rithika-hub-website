@@ -11,11 +11,19 @@ const quickLinks = [
 ];
 
 export default function Footer() {
+  function scrollToSection(event, sectionId) {
+    event.preventDefault();
+    document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
   return (
     <footer className="footer-new">
       <div className="footer-grid">
         <div>
-          <a className="brand footer-brand" href="#home">
+          <a className="brand footer-brand" href="#home" onClick={(event) => scrollToSection(event, '#home')}>
             <span>RH</span>
             <strong>Rithika Hub</strong>
           </a>
@@ -31,7 +39,7 @@ export default function Footer() {
         <div>
           <h3>Categories</h3>
           {bentoCategories.map((category) => (
-            <a key={category.title} href="#services">
+            <a key={category.title} href="#services" onClick={(event) => scrollToSection(event, '#services')}>
               {category.title}
             </a>
           ))}
@@ -39,7 +47,7 @@ export default function Footer() {
         <div>
           <h3>Quick Links</h3>
           {quickLinks.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a key={link.href} href={link.href} onClick={(event) => scrollToSection(event, link.href)}>
               {link.label}
             </a>
           ))}
